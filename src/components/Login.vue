@@ -49,12 +49,20 @@
 			  		})
 			  		if(result!=null && result.length>0){
 			  			this.$router.push({name:'homeLink'})
+						this.$store.dispatch('setUserName',result[0].email)
+					 
 			  		}else{
+						this.$store.dispatch('setUserName',null)
 			  			alert("您输入的用户名或密码有误")
 			  		}
 			  		
 			  	})
 			 }
+		},
+		beforeRouteEnter (to, from, next) {
+		next(vm => {
+			vm.$store.dispatch('setUserName',null)
+		})
 		}
 	}
 </script>

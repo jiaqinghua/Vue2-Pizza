@@ -19,8 +19,15 @@
 			</ul>
 
 			<ul class="navbar-nav ml-auto">
-				<li><router-link :to="{name:'loginLink'}" class="nav-link">登录</router-link></li>
-				<li><router-link :to="{name:'registerLink'}" class="nav-link">注册</router-link></li>
+			 
+				<li v-show="!islogin"><router-link :to="{name:'loginLink'}" class="nav-link">登录</router-link></li>
+				<li v-show="!islogin"><router-link :to="{name:'registerLink'}" class="nav-link">注册</router-link></li>
+				 
+				<li v-show="islogin"><span>{{loginName}}</span></li>
+				<li v-show="islogin">
+					
+					<router-link :to="{name:'loginLink'}" class="nav-link">退出</router-link>
+				</li>
 			</ul>
 			</nav>
 
@@ -32,6 +39,16 @@
 		data(){
 			return {
 				homelink:'/'
+			}
+		},
+		computed:{
+			//获取登录名
+			loginName(){
+				return this.$store.getters.getloginName
+			},
+			//获取登录状态
+			islogin(){
+				return this.$store.getters.getislogin
 			}
 		}
 	}
